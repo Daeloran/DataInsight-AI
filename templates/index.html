@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Analyse de Données avec IA</title>
+        <!-- Inclure Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h1 class="text-center">Analyse de Données avec IA</h1>
+            <form method="post" enctype="multipart/form-data" class="mt-4">
+                <div class="form-group">
+                    <label for="file">Choisir un fichier Excel :</label>
+                    <input type="file" name="file" id="file" class="form-control" required />
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="analyze_standard" name="analyze_standard" checked />
+                    <label for="analyze_standard" class="form-check-label">Activer le mode Standard</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="analyze_time_series" name="analyze_time_series" />
+                    <label for="analyze_time_series" class="form-check-label">Activer l'analyse des séries temporelles</label>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Analyser</button>
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+            <div class="mt-4">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %} {% endwith %} {% if interpretation_summary %}
+            <div class="mt-5">
+                <h2>Interprétation des Données</h2>
+                <div class="card p-3">{{ interpretation_summary | safe }}</div>
+            </div>
+            {% endif %} {% if interpretation_time_series %}
+            <div class="mt-5">
+                <h2>Interprétation des Séries Temporelles</h2>
+                <div class="card p-3">{{ interpretation_time_series | safe }}</div>
+            </div>
+            {% endif %} {% if graphs %}
+            <div class="mt-5">
+                <h2>Visualisation des Données</h2>
+                {% for graph in graphs %}
+                <div class="mt-3">{{ graph | safe }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <!-- Inclure Bootstrap JS et ses dépendances -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>

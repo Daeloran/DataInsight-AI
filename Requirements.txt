@@ -4,3 +4,7 @@ langchain
 langchain_community
 ollama
 openpyxl
+plotly
+flask
+statsmodels
+markdown2
