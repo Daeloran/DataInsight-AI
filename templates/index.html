@@ -23,6 +23,10 @@
                     <input type="checkbox" class="form-check-input" id="analyze_time_series" name="analyze_time_series" />
                     <label for="analyze_time_series" class="form-check-label">Activer l'analyse des séries temporelles</label>
                 </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="include_time_series_in_export" name="include_time_series_in_export" />
+                    <label for="include_time_series_in_export" class="form-check-label">Inclure les séries temporelles dans l'export</label>
+                </div>
                 <button type="submit" class="btn btn-primary mt-3">Analyser</button>
             </form>
             {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
@@ -35,6 +39,11 @@
             <div class="mt-5">
                 <h2>Interprétation des Données</h2>
                 <div class="card p-3">{{ interpretation_summary | safe }}</div>
+                <div class="mt-3">
+                    <a href="{{ url_for('download_file', filename=csv_filename) }}" class="btn btn-secondary">Télécharger CSV</a>
+                    <a href="{{ url_for('download_file', filename=excel_filename) }}" class="btn btn-secondary">Télécharger Excel</a>
+                    <a href="{{ url_for('download_file', filename=json_filename) }}" class="btn btn-secondary">Télécharger JSON</a>
+                </div>
             </div>
             {% endif %} {% if interpretation_time_series %}
             <div class="mt-5">
